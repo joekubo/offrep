@@ -5,8 +5,9 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="from" class="java.lang.String"/>
 	<parameter name="to" class="java.lang.String"/>
+	<parameter name="company_id" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT companytable.company_name,companytable.location AS 'company_location',companytable.address AS 'company_address',companytable.city AS 'company_city',companytable.phone_no AS 'company_phone',companytable.email AS 'companytable.email', paymentstable.id AS 'id',paymentstable.payment_date AS 'Date',Clientstable.name AS 'Client Name',Clientstable.email AS 'Email Address',paymentstable.details AS 'Details',paymentstable.debit AS 'Debit',paymentstable.credit AS 'Credit',paymentstable.expenses_amount AS 'Our Expenses',userstable.name AS 'served_by' FROM userstable,Clientstable,paymentstable,companytable WHERE paymentstable.user_id = userstable.id AND Clientstable.clientid = paymentstable.client_id AND userstable.company_id = companytable.id AND paymentstable.s = '1' AND paymentstable.payment_date BETWEEN $P{from} AND $P{to}]]>
+		<![CDATA[SELECT companytable.company_name,companytable.location AS 'company_location',companytable.address AS 'company_address',companytable.city AS 'company_city',companytable.phone_no AS 'company_phone',companytable.email AS 'companytable.email', paymentstable.id AS 'id',paymentstable.payment_date AS 'Date',clientstable.name AS 'Client Name',clientstable.email AS 'Email Address',paymentstable.details AS 'Details',paymentstable.debit AS 'Debit',paymentstable.credit AS 'Credit',paymentstable.expenses_amount AS 'Our Expenses',userstable.name AS 'served_by' FROM userstable,clientstable,paymentstable,companytable WHERE paymentstable.user_id = userstable.id AND clientstable.clientid = paymentstable.client_id AND paymentstable.company_id = companytable.id AND paymentstable.s = '1' AND paymentstable.company_id = $P{company_id} AND paymentstable.payment_date BETWEEN $P{from} AND $P{to}]]>
 	</queryString>
 	<field name="company_name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -48,11 +49,11 @@
 	<title>
 		<band height="101" splitType="Stretch">
 			<staticText>
-				<reportElement x="335" y="0" width="220" height="27" forecolor="#CCCCCC" uuid="319c2820-337f-46d7-86db-933c2f486826"/>
+				<reportElement x="273" y="0" width="282" height="27" forecolor="#CCCCCC" uuid="319c2820-337f-46d7-86db-933c2f486826"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[General Report]]></text>
+				<text><![CDATA[GENERAL STATEMENT]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="27" width="555" height="31" uuid="11fd6abb-dd34-4d90-8c38-4d0a064b35f6"/>

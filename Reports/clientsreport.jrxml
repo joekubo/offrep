@@ -44,9 +44,12 @@
 		</box>
 	</style>
 	<subDataset name="clientslines" uuid="24109b79-dd35-4b85-b606-01bdb6a8cf59">
-		<queryString language="SQL">
-			<![CDATA[SELECT * FROM Clientstable]]>
+		<queryString>
+			<![CDATA[SELECT * FROM clientstable WHERE clientid > 1]]>
 		</queryString>
+		<field name="clientid" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
 		<field name="name" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
@@ -65,9 +68,15 @@
 		<field name="pin" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
+		<field name="balance" class="java.lang.Double">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="s" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
 	</subDataset>
 	<queryString>
-		<![CDATA[SELECT * FROM companytable,Clientstable WHERE Clientstable.s = '1' AND Clientstable.clientid > 1]]>
+		<![CDATA[SELECT * FROM companytable,clientstable WHERE clientstable.s = '1' AND clientstable.clientid > 1]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -125,7 +134,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Employees Reports]]></text>
+				<text><![CDATA[Clients' Reports]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="54" width="555" height="15" uuid="8b8a621d-19d8-41ca-878d-ce9bb06cead6"/>

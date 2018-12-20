@@ -8,8 +8,8 @@
 	<parameter name="to" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT companytable.company_name,companytable.location,companytable.address,companytable.city,
-companytable.phone_no,companytable.email,Clientstable.name,Clientstable.email AS 'client_email',Clientstable.balance,paymentstable.payment_date,paymentstable.details,paymentstable.debit,
-paymentstable.credit,userstable.name AS 'user_name' FROM companytable,userstable,paymentstable,Clientstable WHERE userstable.company_id = companytable.id AND userstable.id = paymentstable.user_id AND paymentstable.client_id = Clientstable.clientid AND paymentstable.client_id = $P{clientid} AND paymentstable.payment_date BETWEEN  $P{from} AND $P{to} AND paymentstable.s = '1']]>
+companytable.phone_no,companytable.email,clientstable.name,clientstable.email AS 'client_email',clientstable.balance,paymentstable.payment_date,paymentstable.details,paymentstable.debit,
+paymentstable.credit,userstable.name AS 'user_name' FROM companytable,userstable,paymentstable,clientstable WHERE paymentstable.company_id = companytable.id AND userstable.id = paymentstable.user_id AND paymentstable.client_id = clientstable.clientid AND paymentstable.client_id = $P{clientid} AND paymentstable.payment_date BETWEEN  $P{from} AND $P{to} AND paymentstable.s = '1']]>
 	</queryString>
 	<field name="company_name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -65,7 +65,7 @@ paymentstable.credit,userstable.name AS 'user_name' FROM companytable,userstable
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PAYMENTS REPORT]]></text>
+				<text><![CDATA[CLIENT'S STATEMENT]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="26" width="555" height="30" uuid="bac8d9ec-8776-432b-a20a-9dd18c61d3ca"/>
@@ -86,7 +86,7 @@ paymentstable.credit,userstable.name AS 'user_name' FROM companytable,userstable
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["P.O Box "+$F{address}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="76" width="555" height="12" uuid="e69dcd6e-6b71-4474-ba27-bb722b95fd09"/>

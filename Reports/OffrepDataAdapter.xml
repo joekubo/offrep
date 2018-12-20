@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>offrepConnection</name><driver>com.mysql.jdbc.Driver</driver><username>root</username><password>JesusChrist1</password><savePassword>true</savePassword><url>jdbc:mysql://localhost/offrepdb</url><database></database><serverAddress></serverAddress><classpath>/home/joe/Documents/jarFiles/mysql-connector-java-5.1.38-bin.jar</classpath></jdbcDataAdapter>
