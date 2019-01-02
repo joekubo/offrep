@@ -282,6 +282,17 @@
 			</staticText>
 		</band>
 	</columnFooter>
+	<pageFooter>
+		<band height="20">
+			<staticText>
+				<reportElement x="1" y="0" width="555" height="20" forecolor="#666666" uuid="bf4c96e1-0309-4b11-bb94-7a0457d49541"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Offrep Software Developed by TOLCLIN IT - info@tolclin.com. visit http://www.tolclin.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
 	<summary>
 		<band height="123" splitType="Stretch">
 			<textField>

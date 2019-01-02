@@ -1391,10 +1391,10 @@ public class Offrep extends javax.swing.JFrame {
                         GeneratedCode generated = new GeneratedCode();
                         String codegen = generated.generation();
                         String account = "Offrep-"+accountname;
-//                        mpesa = new Mpesa("mQNxJDUjAOc6iiOlO4tH0p4R1GHzOs1M","zSsJvTTXAPJ0lpME");
-//                        mpesa.STKPushSimulation("224343","MjI0MzQzN2IyZGEyZTM2Y2ZiYjc4YjU0ZmRkODliMjVlMDgyZThhZWJmMmE0MDRmNWE4Y2ExM2VkN2I0M2I2Yjk5NjE4YzIwMTgxMTAzMTYwNzMz",
-//                            "20181103160733","CustomerPayBillOnline",""+amount+"",""+phoneno+"",""+phoneno+"","224343","http://tolclin.com/mpesa-api/callback_url.php?account="+account+"_"+codegen+"",
-//                             "",""+account+"",""+account+"");
+                        mpesa = new Mpesa("mQNxJDUjAOc6iiOlO4tH0p4R1GHzOs1M","zSsJvTTXAPJ0lpME");
+                        mpesa.STKPushSimulation("224343","MjI0MzQzN2IyZGEyZTM2Y2ZiYjc4YjU0ZmRkODliMjVlMDgyZThhZWJmMmE0MDRmNWE4Y2ExM2VkN2I0M2I2Yjk5NjE4YzIwMTgxMTAzMTYwNzMz",
+                            "20181103160733","CustomerPayBillOnline",""+amount+"",""+phoneno+"",""+phoneno+"","224343","http://tolclin.com/mpesa-api/callback_url.php?account="+account+"_"+codegen+"",
+                             "",""+account+"",""+account+"");
                         String query = "UPDATE renew_table SET code = '"+codegen+"' WHERE id = '1'";
                         manage.update(query); 
                         DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -1404,6 +1404,7 @@ public class Offrep extends javax.swing.JFrame {
                             + " "+codegen+" AS "+today+" AMOUNT Kshs."+(String)comboAmount_push.getSelectedItem()+" for Account "+account+"";
                         String subject_to_me = ""+loggedcompanyname+" Generated Code";
                         manage.sendnotification_emailtome("josephmwawasi29@gmail.com","tolclin.it@gmail.com","J35u5Christ",subject_to_me,message_to_me,DialogRenew);
+                        
                         comboAmount_push.setEnabled(false);
                         buttonPush.setEnabled(false);
                         txtPhone_push.setEnabled(false);

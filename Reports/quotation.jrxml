@@ -307,6 +307,17 @@ quotation_table.total,companytable.image FROM companytable,userstable,quotation_
 			</staticText>
 		</band>
 	</columnFooter>
+	<pageFooter>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#666666" uuid="d20c812e-b3d8-4e7e-a6d4-ca9dde984a3b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Offrep Software Developed by TOLCLIN IT - info@tolclin.com. visit http://www.tolclin.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
 	<summary>
 		<band height="124" splitType="Stretch">
 			<staticText>

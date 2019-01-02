@@ -220,8 +220,19 @@ paymentstable.credit,userstable.name AS 'user_name' FROM companytable,userstable
 			</line>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="20">
+			<staticText>
+				<reportElement x="-1" y="0" width="555" height="20" forecolor="#666666" uuid="e5552213-e687-4087-a34f-690895cd4ed0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Offrep Software Developed by TOLCLIN IT - info@tolclin.com. visit http://www.tolclin.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
 	<summary>
-		<band height="93" splitType="Stretch">
+		<band height="62" splitType="Stretch">
 			<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
 				<reportElement x="289" y="11" width="79" height="20" uuid="29d009ee-9fa9-4002-a627-f95794031bd3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
