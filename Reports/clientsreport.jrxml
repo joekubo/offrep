@@ -156,18 +156,18 @@
 		</band>
 	</title>
 	<pageFooter>
-		<band height="42" splitType="Stretch">
+		<band height="36" splitType="Stretch">
 			<textField pattern="dd-MMM-yyyy">
-				<reportElement x="179" y="2" width="200" height="20" forecolor="#CCCCCC" uuid="6d5456ba-5bb6-4de3-a913-70cf0b902951"/>
+				<reportElement x="170" y="2" width="200" height="20" forecolor="#CCCCCC" uuid="6d5456ba-5bb6-4de3-a913-70cf0b902951"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="22" width="555" height="20" forecolor="#666666" uuid="48f658aa-abb5-4d28-b8cb-c8091519b3a7"/>
+				<reportElement x="0" y="15" width="555" height="20" forecolor="#CCCCCC" uuid="03aea0fb-29ad-44a5-903a-e937683f0c3f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="7" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Offrep Software Developed by TOLCLIN IT - info@tolclin.com. visit http://www.tolclin.com]]></text>
 			</staticText>

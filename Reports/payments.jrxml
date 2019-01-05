@@ -221,11 +221,11 @@ paymentstable.credit,userstable.name AS 'user_name' FROM companytable,userstable
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="20">
+		<band height="21">
 			<staticText>
-				<reportElement x="-1" y="0" width="555" height="20" forecolor="#666666" uuid="e5552213-e687-4087-a34f-690895cd4ed0"/>
+				<reportElement x="-1" y="1" width="555" height="20" forecolor="#CCCCCC" uuid="32cbe514-7368-4591-abb7-77ddb1c1057b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="7" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Offrep Software Developed by TOLCLIN IT - info@tolclin.com. visit http://www.tolclin.com]]></text>
 			</staticText>

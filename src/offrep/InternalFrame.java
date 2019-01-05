@@ -75,6 +75,7 @@ public class InternalFrame extends javax.swing.JPanel {
         payments.DialogPayments.dispose();
         expenses.DialogExpenses.dispose();
         invoices.DialogEditInvoice.dispose();
+        about.DialogFeedback.dispose();
     }
     private void allbuttonsdefaultcolor(){
         buttonCompany.setBackground(Color.WHITE);
@@ -432,6 +433,8 @@ public class InternalFrame extends javax.swing.JPanel {
         report.setVisible(false);
         reminder.setVisible(false);
         about.setVisible(true);
+        about.buttonfeedback.setEnabled(true);
+        about.buttonExit.setEnabled(true);
     }
     public void priviledges(){
         if(loggedusertype.equals("User")){

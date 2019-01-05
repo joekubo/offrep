@@ -278,18 +278,18 @@
 	<pageFooter>
 		<band height="20">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="20" forecolor="#666666" uuid="d1b62b25-8248-474b-844e-203ea37bd46e"/>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#CCCCCC" uuid="db96d5c7-1435-432c-888a-d4cadb904753"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="7" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Offrep Software Developed by TOLCLIN IT - info@tolclin.com. visit http://www.tolclin.com]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="82" splitType="Stretch">
+		<band height="58" splitType="Stretch">
 			<textField>
-				<reportElement x="367" y="60" width="189" height="20" forecolor="#CCCCCC" uuid="61419ed1-6049-46c7-b075-15852059a285"/>
+				<reportElement x="367" y="37" width="189" height="20" forecolor="#CCCCCC" uuid="61419ed1-6049-46c7-b075-15852059a285"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isItalic="true"/>
 				</textElement>
@@ -315,20 +315,6 @@
 			<line>
 				<reportElement x="377" y="26" width="179" height="1" uuid="5aab3ed0-bbaa-430f-8f2c-26ae9c843375"/>
 			</line>
-			<staticText>
-				<reportElement x="316" y="27" width="125" height="20" forecolor="#0033FF" uuid="a0b22219-5da5-4cba-9935-dfd4cfdcb573"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12" isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Your Balance:]]></text>
-			</staticText>
-			<textField pattern="#,##0.00;(#,##0.00)">
-				<reportElement x="441" y="27" width="115" height="20" uuid="266ca700-5b09-4a05-939c-eaefa420bdb5"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>

@@ -31,12 +31,37 @@ public class CompanyPanel extends javax.swing.JPanel {
         initComponents();
         conn = Manage.ConnecrDb();
         update_table();
-        addimage.setToolTipText("Image Size should be ");
+        
+        addimage.setToolTipText("Image Size should be 1146, 283 pixels");
     }
 
     private void update_table(){
         String sql = "SELECT id,company_name AS 'Company Name',email AS 'Email',pin AS 'PIN',website AS 'Website' FROM companytable WHERE s = '1'";
         manage.update_table(sql, tablecompany);
+    }
+    private void loadaccountname(){
+        try{
+            String sql = "SELECT * FROM companytable WHERE s = '1'";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+                if(rs.next()){
+                    txtAccount.setText(rs.getString("account_name"));
+                        if(txtAccount.getText().equals("")){
+                            txtAccount.setEnabled(true);
+                        }else{
+                            txtAccount.setEnabled(false);
+                        }
+                }
+        }catch(Exception e){
+            System.out.println(e+" companypanel.loadaccountname");
+        }finally{
+            try{
+                rs.close();
+                pst.close();
+            }catch(Exception e){
+                
+            }
+        }
     }
     public void reset(){
         txtCompanyName.setText("");
@@ -60,6 +85,7 @@ public class CompanyPanel extends javax.swing.JPanel {
         update_table();
         companyid = 0;
         lbl_exception.setText("");
+        loadaccountname();
     }
     private void selectedrow(){
         buttonSave.setEnabled(false);

@@ -28,9 +28,10 @@ public class Offrep extends javax.swing.JFrame {
         public static String loggedcompanyname;
         public static String loggedusertype;
         public static String logopath;
-        private String company_phoneno;
-        private String email_address;
-        private String email_pass;
+        public static String company_accountname;
+        private static String company_phoneno;
+        private static String email_address;
+        private static String email_pass;
         private float daysBetween;
         Manage manage = new Manage();
         ImageIcon icon;
@@ -163,6 +164,10 @@ public class Offrep extends javax.swing.JFrame {
                         
                         internal.report.loggedcompanyid = loggedcompanyid;
                         
+                        internal.about.loggedincompany = loggedcompanyname;
+                        internal.about.company_accountname = company_accountname;
+                        internal.about.companyphone = company_phoneno;
+                        internal.about.companyemail = email_address;
                      
 
                         manage.update("UPDATE userstable SET last_login = '"+dateFormat.format(date.getTime())+"' WHERE id = '"+loggeduserid+"'");
@@ -288,7 +293,7 @@ public class Offrep extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Calendar c = Calendar.getInstance();
             c.setTime(new Date());
-            c.add(Calendar.DATE, days);
+            //c.add(Calendar.DATE, days);
             daysBetween = 0;
                 try{
                     String sql = "SELECT * FROM renew_table WHERE s = '1' AND id = '1'";
@@ -301,7 +306,47 @@ public class Offrep extends javax.swing.JFrame {
                                 if(initial_d == final_d || initial_d.after(final_d)){
                                     c.add(Calendar.DATE, days);
                                 }else{
+                                    date_difference();
+                                    int daybtwn = (int)(Math.round(daysBetween));
                                     
+                                    c.add(Calendar.DATE, days - (- daybtwn));
+                                }
+                                String output = sdf.format(c.getTime());
+                                manage.updatedate("UPDATE renew_table SET final_date = '"+output+"' WHERE id = '1'");
+                        }
+                }catch(Exception e){
+                    System.out.println(e+" ");
+                }finally{
+                    try{
+                        rs.close();
+                        pst.close();
+                    }catch(Exception e){
+
+                    }
+                }
+    } 
+    public void renewingtime_push(){//activate immediately the code has accepted.
+            String amount = comboAmount_push.getSelectedItem().toString();
+            amount = amount.trim();
+            int renewal_amount = Integer.parseInt(amount);
+            int days = renewal_amount/15 ;
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date());
+            //c.add(Calendar.DATE, days);
+            daysBetween = 0;
+                try{
+                    String sql = "SELECT * FROM renew_table WHERE s = '1' AND id = '1'";
+                    pst = conn.prepareStatement(sql);
+                    rs = pst.executeQuery();
+                        if(rs.next()){
+                            Date final_d = rs.getDate("final_date");
+                            Date initial_d = rs.getDate("today_date");
+                            
+                                if(initial_d == final_d || initial_d.after(final_d)){
+                                    c.add(Calendar.DATE, days);
+                                }else{
                                     date_difference();
                                     int daybtwn = (int)(Math.round(daysBetween));
                                     
@@ -370,19 +415,6 @@ public class Offrep extends javax.swing.JFrame {
         comboCompany = new javax.swing.JComboBox<>();
         DialogRenew = new javax.swing.JDialog();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        buttonActivate = new javax.swing.JButton();
-        txtCode = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        buttonSendCode = new javax.swing.JButton();
-        comboAmount = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
-        txtPhone = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -397,6 +429,19 @@ public class Offrep extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        buttonActivate = new javax.swing.JButton();
+        txtCode = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        buttonSendCode = new javax.swing.JButton();
+        comboAmount = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         ReminderDialog = new javax.swing.JDialog();
         jPanel6 = new javax.swing.JPanel();
         buttonReminder = new javax.swing.JButton();
@@ -582,151 +627,6 @@ public class Offrep extends javax.swing.JFrame {
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
 
-        jPanel4.setBackground(java.awt.Color.white);
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204)));
-
-        jLabel6.setText("Enter Code Here:");
-
-        buttonActivate.setText("Activate");
-        buttonActivate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonActivateActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("SansSerif", 2, 12)); // NOI18N
-        jLabel8.setForeground(java.awt.Color.blue);
-        jLabel8.setText("Enter Amount and click 'Send Code' button for code to be sent to you after verification.");
-
-        jLabel9.setFont(new java.awt.Font("SansSerif", 2, 12)); // NOI18N
-        jLabel9.setForeground(java.awt.Color.blue);
-        jLabel9.setText("Ensure there is internet connection. This will not take a lot of time...");
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 204)));
-
-        jLabel7.setText("Enter Amount:");
-
-        buttonSendCode.setText("Send Code");
-        buttonSendCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSendCodeActionPerformed(evt);
-            }
-        });
-
-        comboAmount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Amount", "450", "900", "1350", "1800", "2250", "2700", "3150", "3600", "4050", "4500", "4950", "5400" }));
-        comboAmount.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                comboAmountPopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-        });
-
-        jLabel10.setText("Enter Phone #:");
-
-        txtPhone.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPhoneKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPhoneKeyPressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPhone))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSendCode, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(buttonSendCode)
-                    .addComponent(comboAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addContainerGap())
-        );
-
-        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel11.setText("NOTE: Please use the same phone# you used to do the payment");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonActivate, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCode))
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(buttonActivate)
-                .addGap(18, 18, 18))
-        );
-
-        jTabbedPane1.addTab("Send Code", jPanel4);
-
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -882,6 +782,151 @@ public class Offrep extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("STK Push", jPanel8);
+
+        jPanel4.setBackground(java.awt.Color.white);
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204)));
+
+        jLabel6.setText("Enter Code Here:");
+
+        buttonActivate.setText("Activate");
+        buttonActivate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonActivateActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("SansSerif", 2, 12)); // NOI18N
+        jLabel8.setForeground(java.awt.Color.blue);
+        jLabel8.setText("Enter Amount and click 'Send Code' button for code to be sent to you after verification.");
+
+        jLabel9.setFont(new java.awt.Font("SansSerif", 2, 12)); // NOI18N
+        jLabel9.setForeground(java.awt.Color.blue);
+        jLabel9.setText("Ensure there is internet connection. This will not take a lot of time...");
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 204)));
+
+        jLabel7.setText("Enter Amount:");
+
+        buttonSendCode.setText("Send Code");
+        buttonSendCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSendCodeActionPerformed(evt);
+            }
+        });
+
+        comboAmount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Amount", "450", "900", "1350", "1800", "2250", "2700", "3150", "3600", "4050", "4500", "4950", "5400" }));
+        comboAmount.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                comboAmountPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+
+        jLabel10.setText("Enter Phone #:");
+
+        txtPhone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPhoneKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPhoneKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPhone))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSendCode, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(buttonSendCode)
+                    .addComponent(comboAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addContainerGap())
+        );
+
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel11.setText("NOTE: Please use the same phone# you used to do the payment");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonActivate, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(89, 89, 89)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCode))
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(buttonActivate)
+                .addGap(18, 18, 18))
+        );
+
+        jTabbedPane1.addTab("Send Code", jPanel4);
 
         javax.swing.GroupLayout DialogRenewLayout = new javax.swing.GroupLayout(DialogRenew.getContentPane());
         DialogRenew.getContentPane().setLayout(DialogRenewLayout);
@@ -1210,7 +1255,18 @@ public class Offrep extends javax.swing.JFrame {
         buttonNo.setVisible(false);
         buttonNo.requestFocus();
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-            login();
+            if(txtUsername.getText().equals("")){
+                  lbl_exception.setText("Please Enter Username...");
+                  txtUsername.requestFocus();
+              }else if(txtPassword.getText().equals("")){
+                  lbl_exception.setText("Please Enter Password...");
+                  txtPassword.requestFocus();
+              }else if(comboCompany.getSelectedItem().toString().equals("Select Company")){
+                  lbl_exception.setText("Please Enter Company...");
+                  comboCompany.requestFocus();
+              }else{
+                  login();
+              }
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
 
@@ -1333,7 +1389,18 @@ public class Offrep extends javax.swing.JFrame {
         buttonNo.setVisible(false);
         buttonNo.requestFocus();
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-            login();
+            if(txtUsername.getText().equals("")){
+                  lbl_exception.setText("Please Enter Username...");
+                  txtUsername.requestFocus();
+              }else if(txtPassword.getText().equals("")){
+                  lbl_exception.setText("Please Enter Password...");
+                  txtPassword.requestFocus();
+              }else if(comboCompany.getSelectedItem().toString().equals("Select Company")){
+                  lbl_exception.setText("Please Enter Company...");
+                  comboCompany.requestFocus();
+              }else{
+                  login();
+              }
         }
     }//GEN-LAST:event_txtUsernameKeyPressed
 
@@ -1387,10 +1454,10 @@ public class Offrep extends javax.swing.JFrame {
                 pst.setInt(1, loggedcompanyid);
                 rs = pst.executeQuery();
                     if(rs.next()){
-                        String accountname = rs.getString("account_name");
+                        String accountname_ = rs.getString("account_name");
                         GeneratedCode generated = new GeneratedCode();
                         String codegen = generated.generation();
-                        String account = "Offrep-"+accountname;
+                        String account = "Nazi-"+accountname_;
                         mpesa = new Mpesa("mQNxJDUjAOc6iiOlO4tH0p4R1GHzOs1M","zSsJvTTXAPJ0lpME");
                         mpesa.STKPushSimulation("224343","MjI0MzQzN2IyZGEyZTM2Y2ZiYjc4YjU0ZmRkODliMjVlMDgyZThhZWJmMmE0MDRmNWE4Y2ExM2VkN2I0M2I2Yjk5NjE4YzIwMTgxMTAzMTYwNzMz",
                             "20181103160733","CustomerPayBillOnline",""+amount+"",""+phoneno+"",""+phoneno+"","224343","http://tolclin.com/mpesa-api/callback_url.php?account="+account+"_"+codegen+"",
@@ -1404,7 +1471,6 @@ public class Offrep extends javax.swing.JFrame {
                             + " "+codegen+" AS "+today+" AMOUNT Kshs."+(String)comboAmount_push.getSelectedItem()+" for Account "+account+"";
                         String subject_to_me = ""+loggedcompanyname+" Generated Code";
                         manage.sendnotification_emailtome("josephmwawasi29@gmail.com","tolclin.it@gmail.com","J35u5Christ",subject_to_me,message_to_me,DialogRenew);
-                        
                         comboAmount_push.setEnabled(false);
                         buttonPush.setEnabled(false);
                         txtPhone_push.setEnabled(false);
@@ -1415,10 +1481,11 @@ public class Offrep extends javax.swing.JFrame {
                         buttonActivate1.setVisible(true);
                         txtCode_push.requestFocus();
                     }
+                    
             } catch (Exception ex) {
                 System.out.println(ex);
         }
-            
+
     }
     private void resetPush(){
         comboAmount_push.setEnabled(true);
@@ -1433,6 +1500,7 @@ public class Offrep extends javax.swing.JFrame {
         txtCode_push.setVisible(false);
         buttonReset.setVisible(false);
         buttonActivate1.setVisible(false);
+        buttonPush.setEnabled(true);
     }
     private void buttonPushActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPushActionPerformed
        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
@@ -1445,8 +1513,9 @@ public class Offrep extends javax.swing.JFrame {
                     lbl_exception.setText("Please Enter Phone #...");
                     txtPhone_push.requestFocus();
                 }else{
+                    txtPhone_push.setEnabled(false);
                     comboAmount_push.setEnabled(false);
-                    
+                    buttonPush.setEnabled(false);
                     pay();
                 }
                 return null;
@@ -1470,22 +1539,20 @@ public class Offrep extends javax.swing.JFrame {
 
     private void buttonActivate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActivate1ActionPerformed
        try{
-           String sql = "SELECT * FROM renew_table WHERE id = '1'";
-           pst = conn.prepareStatement(sql);
-           rs = pst.executeQuery();
-            if(rs.next()){
-               String serial = txtCode_push.getText();
-               String code = rs.getString("code");
-                if(code.equals(serial)){
+           String sql = "SELECT * FROM renew_table WHERE code = ? AND id = '1' AND s = '1'";
+            pst = conn.prepareStatement(sql);
+            
+            pst.setString(1, txtCode_push.getText());
+            rs = pst.executeQuery();
+                if(rs.next()){
                     DialogRenew.dispose();
-                    renewingtime();
+                    renewingtime_push();
+                    this.setEnabled(true);
                     daysBetween = 0;
                     date_difference();
-//                    String path = "thankyou.wav";
-//                    manage.music(path);
-                    this.setEnabled(true);
+                    String path = "thankyou.wav";
+                    manage.music(path);
                 }
-            }
        }catch(Exception e){
            
        }finally{
@@ -1515,6 +1582,7 @@ public class Offrep extends javax.swing.JFrame {
                 if(rs.next()){
                     loggedcompanyid = rs.getInt("id");
                     loggedcompanyname = rs.getString("company_name");
+                    company_accountname = rs.getString("account_name");
                     company_phoneno = rs.getString("phone_no");
                     email_address = rs.getString("email");
                     email_pass = rs.getString("email_password");

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" language="groovy" pageWidth="595" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc9e4a59-344a-4df5-9060-aafb02627161">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="8"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -285,29 +285,22 @@
 	<pageFooter>
 		<band height="20">
 			<staticText>
-				<reportElement x="1" y="0" width="555" height="20" forecolor="#666666" uuid="bf4c96e1-0309-4b11-bb94-7a0457d49541"/>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#CCCCCC" uuid="f8d2ff7c-a5ed-49be-bc2a-2577bede80eb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="7" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Offrep Software Developed by TOLCLIN IT - info@tolclin.com. visit http://www.tolclin.com]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="123" splitType="Stretch">
+		<band height="98" splitType="Stretch">
 			<textField>
-				<reportElement x="368" y="102" width="189" height="20" forecolor="#CCCCCC" uuid="61419ed1-6049-46c7-b075-15852059a285"/>
+				<reportElement x="367" y="77" width="189" height="20" forecolor="#CCCCCC" uuid="61419ed1-6049-46c7-b075-15852059a285"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Prepared By "+$F{user_name}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00;(#,##0.00)">
-				<reportElement x="441" y="68" width="115" height="20" uuid="0debf2b7-98eb-4324-8e68-a057d487eb93"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;(#,##0.00)">
 				<reportElement x="441" y="0" width="115" height="20" uuid="3d80ad3f-996c-440d-bc2a-f3f186e9cd5b"/>
@@ -328,13 +321,6 @@
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="316" y="68" width="125" height="20" forecolor="#0033FF" uuid="be86f0f1-b662-4a95-b7f3-731b23245764"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12" isBold="false" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Your Balance:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="367" y="19" width="74" height="20" forecolor="#0033FF" uuid="94b4a151-99b3-445d-9b0d-53140ed2f212"/>

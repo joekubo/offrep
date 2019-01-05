@@ -225,9 +225,9 @@
 	<pageFooter>
 		<band height="20">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="20" forecolor="#666666" uuid="0daf5e68-0eae-4b2b-a9eb-3d4f92c24d5b"/>
+				<reportElement x="1" y="0" width="555" height="20" forecolor="#CCCCCC" uuid="6bcac05b-2258-41ee-aa8d-99fa6ac7c8c0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="7" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Offrep Software Developed by TOLCLIN IT - info@tolclin.com. visit http://www.tolclin.com]]></text>
 			</staticText>
