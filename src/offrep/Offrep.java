@@ -378,8 +378,8 @@ public class Offrep extends javax.swing.JFrame {
                     if(today_date.after(final_date)){
                         showrenewdialog();
                     }else if(today_date.equals(final_date)){
-//                        String path = "nazi.wav";
-//                        manage.music(path);
+                        String path = "nazi.wav";
+                        manage.music(path);
                     }else{
                         
                     }
@@ -1352,8 +1352,8 @@ public class Offrep extends javax.swing.JFrame {
                     this.setEnabled(true);
                     daysBetween = 0;
                     date_difference();
-//                    String path = "thankyou.wav";
-//                    manage.music(path);
+                    String path = "thankyou.wav";
+                    manage.music(path);
                 }
         }catch(Exception e){
             DialogRenew.dispose();
@@ -1457,7 +1457,7 @@ public class Offrep extends javax.swing.JFrame {
                         String accountname_ = rs.getString("account_name");
                         GeneratedCode generated = new GeneratedCode();
                         String codegen = generated.generation();
-                        String account = "Nazi-"+accountname_;
+                        String account = "Offrep-"+accountname_;
                         mpesa = new Mpesa("mQNxJDUjAOc6iiOlO4tH0p4R1GHzOs1M","zSsJvTTXAPJ0lpME");
                         mpesa.STKPushSimulation("224343","MjI0MzQzN2IyZGEyZTM2Y2ZiYjc4YjU0ZmRkODliMjVlMDgyZThhZWJmMmE0MDRmNWE4Y2ExM2VkN2I0M2I2Yjk5NjE4YzIwMTgxMTAzMTYwNzMz",
                             "20181103160733","CustomerPayBillOnline",""+amount+"",""+phoneno+"",""+phoneno+"","224343","http://tolclin.com/mpesa-api/callback_url.php?account="+account+"_"+codegen+"",

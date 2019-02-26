@@ -31,7 +31,6 @@ public class CompanyPanel extends javax.swing.JPanel {
         initComponents();
         conn = Manage.ConnecrDb();
         update_table();
-        
         addimage.setToolTipText("Image Size should be 1146, 283 pixels");
     }
 
@@ -215,7 +214,7 @@ public class CompanyPanel extends javax.swing.JPanel {
             }
         }
     }
-    String attachment_path;
+    private String attachment_path;
     private void filechooser(){
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);

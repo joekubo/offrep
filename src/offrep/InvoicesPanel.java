@@ -2011,7 +2011,7 @@ public class InvoicesPanel extends javax.swing.JPanel {
                         + "clientstable WHERE companytable.id = invoicetable.company_id AND userstable.id = invoicetable.user_id AND invoicetable.client_id = "
                         + "clientstable.clientid AND invoicetable.s = '1' AND invoicetable.invoice_no = '"+invoiceno+"' AND companytable.image = '"+logopath+"'";
                 String path = "Reports/invoice.jrxml";
-                manage.report_(sql,path,panelReport,"generated_report.pdf");
+                manage.report_(sql,path,panelReport);
                 jTabbedPane2.setSelectedIndex(2);
                 buttonEmail.setEnabled(true);
                 return null;
@@ -2214,7 +2214,7 @@ public class InvoicesPanel extends javax.swing.JPanel {
                         + "clientstable.clientid AND invoicetable.s = '1' AND invoicetable.invoice_no = '"+invoiceno+"' AND companytable.image = '"+logopath+"'";
                 String path = "Reports/invoice_vat.jrxml";
                 manage.report(sql, path, panelReport);
-                manage.report_(sql,path,panelReport,"generated_report.pdf");
+                manage.report_(sql,path,panelReport);
                 jTabbedPane2.setSelectedIndex(2);
                 buttonEmail.setEnabled(true);
                 return null;
@@ -2260,7 +2260,7 @@ public class InvoicesPanel extends javax.swing.JPanel {
                         + "= clientstable.clientid AND invoicetable.s = '1' AND invoicetable.invoice_no = '"+lbl_invoiceno.getText()+"'";
                 String path = "Reports/invoice_vat.jrxml";
                 //manage.report(sql, path, panelReport);
-                manage.report_(sql,path,panelReport,"generated_report.pdf");
+                manage.report_(sql,path,panelReport);
                 jTabbedPane2.setSelectedIndex(2);
                 buttonEmail.setEnabled(true);
                 resetInfo();
@@ -2281,7 +2281,7 @@ public class InvoicesPanel extends javax.swing.JPanel {
                     String quotedate = ((JTextField)chooserInvoiceDate.getDateEditor().getUiComponent()).getText();
                     String subject = "Invoice from "+companyname+" ON "+quotedate+" - ["+txtInvoiceno.getText()+"]";
                     String msg = "Thank you for working with us...";
-                    String file_name = "INVOICE # "+txtInvoiceno.getText();
+                    String file_name = "INVOICE # "+txtInvoiceno.getText()+".pdf";
                     manage.sendemail_attachment(email,email_pass,email_to,subject,msg, file_name);
                     buttonEmail.setEnabled(false);
                     return null;

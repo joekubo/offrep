@@ -1644,7 +1644,7 @@ public class QuotationPanel extends javax.swing.JPanel {
                         + "companytable.id = quotation_table.company_id AND userstable.id = quotation_table.user_id AND quotation_table.s = '1' "
                         + "AND quotation_table.quotation_no = '"+quoteno+"' AND companytable.image = '"+logopath+"'";
                 String path = "Reports/quotation.jrxml";
-                manage.report_(sql,path,panelQuote,"generated_report.pdf");
+                manage.report_(sql,path,panelQuote);
                 jTabbedPane1.setSelectedIndex(1);
                 buttonEmail.setEnabled(true);
                 return null;
@@ -1785,7 +1785,7 @@ public class QuotationPanel extends javax.swing.JPanel {
                     String email_to = txtEmailAddress.getText();
                     String subject = "Quotation from "+companyname+" ON "+quotedate+" - ["+txtQuotationNo.getText()+"]";
                     String msg = "Thank you in advance for working with us...";
-                    String file_name = "QUOTATION # "+txtQuotationNo.getText();
+                    String file_name = "QUOTATION # "+txtQuotationNo.getText()+".pdf";
                     manage.sendemail_attachment(email,email_pass,email_to,subject,msg, file_name);
                     buttonEmail.setEnabled(false);
                     return null;

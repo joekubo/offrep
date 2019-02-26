@@ -1129,7 +1129,7 @@ public class ReportPanel extends javax.swing.JPanel {
                             + "paymentstable.client_id = clientstable.clientid AND paymentstable.client_id = '"+clientid+"' AND paymentstable.payment_date "
                             + "BETWEEN  '"+from+"' AND '"+to+"' AND paymentstable.s = '1' ";
                     String path = "Reports/payments.jrxml";
-                    manage.report_(sql,path,jPanel9,"generated_report.pdf");
+                    manage.report_(sql,path,jPanel9);
                     jTabbedPane1.setSelectedIndex(6);
                     buttonEmail.setEnabled(true);
                 }
